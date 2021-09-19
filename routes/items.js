@@ -1,4 +1,4 @@
-const { getAllItems, getItemById } = require('../controllers/items');
+const { getAllItems, getItemById, addItem } = require('../controllers/items');
 
 // item schema
 const Item = {
@@ -32,12 +32,25 @@ const getItemOpt = {
   handler: getItemById,
 };
 
+// Options for get all items
+const postItemOpt = {
+  schema: {
+    response: {
+      201: Item,
+    },
+  },
+  handler: addItem,
+};
+
 module.exports = itemRoutes = (fastify, options, done) => {
   // Get all items
   fastify.get('/items', getItemsOpt);
 
   // Get all items
   fastify.get('/item/:id', getItemOpt);
+
+  // Get all items
+  fastify.post('/items', postItemOpt);
 
   done();
 };
