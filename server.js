@@ -1,11 +1,7 @@
 const fastify = require('fastify')({ logger: true });
 const PORT = 5000;
 
-const items = require('./data/items.js');
-
-fastify.get('/items', (req, reply) => {
-  reply.send(items);
-});
+fastify.register(require('./routes/items'));
 
 const start = async () => {
   try {
