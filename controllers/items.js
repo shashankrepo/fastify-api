@@ -26,9 +26,18 @@ const deleteItem = (req, reply) => {
   reply.send(item);
 };
 
+const updateItem = (req, reply) => {
+  const { name } = req.body;
+  const { id } = req.params;
+  let itemIndex = items.findIndex((item) => item.id === id);
+  items[itemIndex].name = name;
+  reply.code(201).send(items[itemIndex]);
+};
+
 module.exports = {
   getAllItems,
   getItemById,
   addItem,
   deleteItem,
+  updateItem,
 };
