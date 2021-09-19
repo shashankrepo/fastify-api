@@ -1,4 +1,4 @@
-const items = require('../data/items.js');
+const { getAllItems, getItemById } = require('../controllers/items');
 
 // item schema
 const Item = {
@@ -19,6 +19,7 @@ const getItemsOpt = {
       },
     },
   },
+  handler: getAllItems,
 };
 
 // Options for get all items
@@ -28,20 +29,15 @@ const getItemOpt = {
       200: Item,
     },
   },
+  handler: getItemById,
 };
 
 module.exports = itemRoutes = (fastify, options, done) => {
   // Get all items
-  fastify.get('/items', getItemsOpt, (req, reply) => {
-    reply.send(items);
-  });
+  fastify.get('/items', getItemsOpt);
 
   // Get all items
-  fastify.get('/item/:id', getItemOpt, (req, reply) => {
-    const { id } = req.params;
-    const item = items.find((item) => item.id === id);
-    reply.send(item);
-  });
+  fastify.get('/item/:id', getItemOpt);
 
   done();
 };
